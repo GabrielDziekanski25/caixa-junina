@@ -30,6 +30,43 @@
 .produto-btn.tem-quantidade .produto-qtd-centro{background:#166534;color:#fff}
 .produto-acao:active{transform:translateY(2px);box-shadow:none}
 @media(max-width:560px){.produto-btn{min-height:104px;padding-bottom:44px}.produto-acoes{grid-template-columns:38px minmax(0,1fr) 38px}.produto-acao,.produto-qtd-centro{height:32px}}
+
+
+/* Correções de responsividade, zoom e controles de quantidade */
+html, body { overscroll-behavior-y: none; }
+body { overflow-x: hidden; }
+.produto-btn { min-width: 0; height: auto; min-height: 118px; padding: 11px 10px 52px; }
+.produto-nome, .produto-preco { padding-right: 34px; overflow-wrap: anywhere; }
+.produto-acoes { display:flex; align-items:center; gap:6px; min-width:0; }
+.produto-acao { flex:0 0 40px; width:40px; min-width:40px; }
+.produto-qtd-centro { flex:1 1 auto; min-width:0; padding:0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:.76rem; }
+.item-grid > * { min-width:0; }
+.item-grid .qty-wrap { width:100%; max-width:none; grid-template-columns:44px minmax(52px,1fr) 44px; }
+.item-grid .qty-btn { width:44px; }
+.item-grid .qty-input { min-width:0; }
+@media (max-width: 900px){
+  .produtos-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .produto-btn { min-height:112px; }
+}
+@media (max-width: 560px){
+  .produtos-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .produto-btn { min-height:116px; padding:10px 8px 50px; }
+  .produto-acoes { left:6px; right:6px; bottom:6px; gap:5px; }
+  .produto-acao { flex-basis:36px; width:36px; min-width:36px; height:34px; }
+  .produto-qtd-centro { height:34px; font-size:.7rem; }
+  .item-grid { grid-template-columns:1fr; }
+  .item-grid .qty-wrap { grid-template-columns:52px minmax(0,1fr) 52px; }
+  .item-grid .qty-btn { width:52px; }
+}
+@media (max-width: 390px){
+  .produtos-grid { grid-template-columns:1fr; }
+  .produto-btn { min-height:104px; }
+  .produto-qtd-centro { font-size:.76rem; }
+}
+@media (min-resolution: 1.5dppx) and (max-width: 700px){
+  .produto-qtd-centro { font-size:.68rem; }
+}
+
 </style>
 </head>
 <body>
@@ -402,25 +439,81 @@ function prepararControlesRapidos(){
     }
 
     compra.addEventListener("input", () => { aplicarMascara(compra); calcularTroco(); });
-    recebido.addEventListener("input", () => { aplicarMascara(recebido); calcularTroco(); });
+    recebido.addEventListener("input", () => { aplicarMascara(recebido); calcularTroco(); salvarVendaLocal(); });
     calcValor.addEventListener("input", () => aplicarMascara(calcValor));
     calcQtd.addEventListener("keydown", e => { if (e.key === "Enter") adicionarItem(); });
 
 
 
     // Proteção contra atualização ou fechamento acidental durante uma venda
+    const CHAVE_VENDA = "caixaRapidoVendaEmAndamento";
+
     function existeVendaEmAndamento() {
       return itens.length > 0 || pegarCentavos(recebido) > 0 || pegarCentavos(compra) > 0;
     }
 
+    function salvarVendaLocal() {
+      if (!existeVendaEmAndamento()) {
+        localStorage.removeItem(CHAVE_VENDA);
+        return;
+      }
+      localStorage.setItem(CHAVE_VENDA, JSON.stringify({
+        itens,
+        recebido: recebido.value,
+        compra: compra.value,
+        salvoEm: Date.now()
+      }));
+    }
+
+    function restaurarVendaLocal() {
+      const bruto = localStorage.getItem(CHAVE_VENDA);
+      if (!bruto) return;
+      try {
+        const dados = JSON.parse(bruto);
+        if (!Array.isArray(dados.itens) || !dados.itens.length) return;
+        const deseja = confirm("Existe uma venda que estava em andamento antes da atualização. Deseja restaurá-la?");
+        if (!deseja) {
+          localStorage.removeItem(CHAVE_VENDA);
+          return;
+        }
+        itens = dados.itens;
+        recebido.value = dados.recebido || "";
+        renderizarItens();
+        calcularTroco();
+      } catch (e) {
+        localStorage.removeItem(CHAVE_VENDA);
+      }
+    }
+
     window.addEventListener("beforeunload", function (evento) {
+      salvarVendaLocal();
       if (!existeVendaEmAndamento()) return;
       evento.preventDefault();
       evento.returnValue = "";
+      return "";
     });
+
+    // Bloqueia F5 e Ctrl/Cmd+R com confirmação explícita no computador.
+    document.addEventListener("keydown", function (evento) {
+      const recarregar = evento.key === "F5" || ((evento.ctrlKey || evento.metaKey) && evento.key.toLowerCase() === "r");
+      if (!recarregar || !existeVendaEmAndamento()) return;
+      evento.preventDefault();
+      if (confirm("Há uma venda em andamento. Deseja realmente atualizar a página?")) {
+        salvarVendaLocal();
+        window.location.reload();
+      }
+    });
+
+    // Em celulares, alguns navegadores não exibem o aviso nativo ao puxar para atualizar.
+    // O overscroll foi desativado no CSS e a venda é salva para recuperação automática.
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") salvarVendaLocal();
+    });
+    window.addEventListener("pagehide", salvarVendaLocal);
 
     calcQtd.value = "1";
     prepararControlesRapidos();
+    restaurarVendaLocal();
   </script>
 </body>
 </html>
