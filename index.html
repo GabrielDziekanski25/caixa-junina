@@ -19,6 +19,17 @@
 @media(max-width:560px){.app{padding:8px}.topo{grid-template-columns:1fr auto;gap:8px;margin:-8px -8px 10px;border-radius:0 0 18px 18px}.marca{gap:9px}.marca-icone{display:none}.subtitulo{font-size:.72rem}.total-box{min-width:126px;border-radius:14px}.total-label{font-size:.62rem}.produtos-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:8px}.produto-btn{min-height:68px;padding:9px}.produto-nome{font-size:.84rem}.produto-preco{font-size:.96rem}.painel{padding:11px;border-radius:20px}.cadastro-grid{grid-template-columns:1fr}.bloco-cadastro{padding:11px}.campo-grande{height:58px}.qty-wrap{grid-template-columns:54px minmax(0,1fr) 54px}.item-grid{grid-template-columns:1fr}.item-nome{grid-column:auto}.btn-apagar{grid-column:auto}.itens-topo{align-items:flex-start}.btn-limpar{max-width:130px}.lateral{gap:10px}.resultado-box{padding:11px}.danger-btn{min-height:56px}}
 @media(max-width:360px){.titulo{font-size:1.2rem}.total-box{min-width:112px;padding:7px 8px}.total-valor{font-size:1.35rem}.produtos-grid{grid-template-columns:1fr 1fr}.produto-btn{min-height:64px}.painel{padding:9px}.qty-wrap{grid-template-columns:48px minmax(0,1fr) 48px}}
 @media(orientation:landscape) and (max-height:560px) and (min-width:700px){.topo{position:static}.lateral{position:static}.app{padding-top:8px}.produtos-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Controles rápidos diretamente no produto */
+.produto-btn{padding-bottom:46px;overflow:hidden}
+.produto-acoes{position:absolute;left:7px;right:7px;bottom:7px;display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:6px;align-items:center}
+.produto-acao{display:grid;place-items:center;height:34px;border-radius:10px;font-size:1.3rem;font-weight:950;line-height:1;user-select:none;touch-action:manipulation;box-shadow:0 2px 0 rgba(0,0,0,.13)}
+.produto-acao.menos{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.produto-acao.mais{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.produto-qtd-centro{display:grid;place-items:center;height:34px;border-radius:10px;background:#f5efe7;color:#5b4636;font-size:.82rem;font-weight:950}
+.produto-btn.tem-quantidade .produto-qtd-centro{background:#166534;color:#fff}
+.produto-acao:active{transform:translateY(2px);box-shadow:none}
+@media(max-width:560px){.produto-btn{min-height:104px;padding-bottom:44px}.produto-acoes{grid-template-columns:38px minmax(0,1fr) 38px}.produto-acao,.produto-qtd-centro{height:32px}}
 </style>
 </head>
 <body>
@@ -97,6 +108,8 @@ function atualizarContadoresProdutos(){
     const quantidade = item ? Number(item.qtd || 0) : 0;
     const contador = botao.querySelector('.produto-contador');
     if (contador) contador.textContent = quantidade;
+    const centro = botao.querySelector('.produto-qtd-centro');
+    if (centro) centro.textContent = quantidade === 1 ? '1 unidade' : `${quantidade} unidades`;
     botao.classList.toggle('tem-quantidade', quantidade > 0);
     botao.setAttribute('aria-label', quantidade > 0
       ? `${nome}, quantidade ${quantidade}. Clique para adicionar mais um.`
@@ -104,6 +117,56 @@ function atualizarContadoresProdutos(){
   });
 }
 
+
+
+function alterarProdutoRapido(nome, delta){
+  const index = itens.findIndex(item => item.nome === nome);
+
+  if (delta > 0) {
+    const botao = [...document.querySelectorAll('.produto-btn[data-produto]')].find(b => b.dataset.produto === nome);
+    if (index >= 0) {
+      itens[index].qtd += 1;
+    } else if (botao) {
+      const onclick = botao.getAttribute('onclick') || '';
+      const valorMatch = onclick.match(/adicionarProduto\(([^,]+)/);
+      const valor = valorMatch ? Number(valorMatch[1]) : 0;
+      if (valor > 0) itens.push({valor:Math.round(valor*100),qtd:1,nome});
+    }
+  } else if (index >= 0) {
+    itens[index].qtd -= 1;
+    if (itens[index].qtd <= 0) itens.splice(index, 1);
+  }
+
+  renderizarItens();
+}
+
+function prepararControlesRapidos(){
+  document.querySelectorAll('.produto-btn[data-produto]').forEach(botao => {
+    if (botao.querySelector('.produto-acoes')) return;
+    const nome = botao.dataset.produto;
+    const acoes = document.createElement('span');
+    acoes.className = 'produto-acoes';
+    acoes.innerHTML = `
+      <span class="produto-acao menos" role="button" tabindex="0" aria-label="Retirar uma unidade de ${nome}">−</span>
+      <span class="produto-qtd-centro">0 unidades</span>
+      <span class="produto-acao mais" role="button" tabindex="0" aria-label="Adicionar uma unidade de ${nome}">+</span>
+    `;
+    const menos = acoes.querySelector('.menos');
+    const mais = acoes.querySelector('.mais');
+    const ativar = (el, delta) => {
+      el.addEventListener('click', e => { e.stopPropagation(); alterarProdutoRapido(nome, delta); });
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault(); e.stopPropagation(); alterarProdutoRapido(nome, delta);
+        }
+      });
+    };
+    ativar(menos, -1);
+    ativar(mais, 1);
+    botao.appendChild(acoes);
+  });
+  atualizarContadoresProdutos();
+}
 
     function formatar(valor) {
       return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -343,7 +406,21 @@ function atualizarContadoresProdutos(){
     calcValor.addEventListener("input", () => aplicarMascara(calcValor));
     calcQtd.addEventListener("keydown", e => { if (e.key === "Enter") adicionarItem(); });
 
+
+
+    // Proteção contra atualização ou fechamento acidental durante uma venda
+    function existeVendaEmAndamento() {
+      return itens.length > 0 || pegarCentavos(recebido) > 0 || pegarCentavos(compra) > 0;
+    }
+
+    window.addEventListener("beforeunload", function (evento) {
+      if (!existeVendaEmAndamento()) return;
+      evento.preventDefault();
+      evento.returnValue = "";
+    });
+
     calcQtd.value = "1";
+    prepararControlesRapidos();
   </script>
 </body>
 </html>
