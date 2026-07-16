@@ -10,7 +10,7 @@
 *{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{min-height:100vh;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at top left,#fff1d6 0,transparent 34%),linear-gradient(145deg,#fffaf0,#fff2d9);-webkit-tap-highlight-color:transparent}button,input{font:inherit}button{cursor:pointer}.app{width:min(1500px,100%);margin:auto;padding:clamp(10px,2vw,24px)}
 .topo{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;margin-bottom:18px;padding:clamp(14px,2vw,22px);border:1px solid rgba(234,88,12,.18);border-radius:24px;background:rgba(255,253,248,.94);box-shadow:var(--shadow);backdrop-filter:blur(14px)}.marca{display:flex;align-items:center;gap:14px;min-width:0}.marca-icone{display:grid;place-items:center;flex:0 0 auto;width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#fb923c,#c2410c);color:white;font-size:28px;box-shadow:0 8px 18px rgba(194,65,12,.25)}.titulo{margin:0;font-size:clamp(1.45rem,4vw,2.55rem);line-height:1;font-weight:950;letter-spacing:-.04em;color:var(--orange-dark)}.subtitulo{margin:5px 0 0;color:var(--muted);font-weight:750;font-size:clamp(.8rem,2vw,1.02rem)}.total-box{min-width:180px;padding:10px 18px;text-align:center;border:2px solid #fdba74;border-radius:18px;background:linear-gradient(145deg,#fff7ed,#ffedd5)}.total-label{margin:0;font-size:.72rem;font-weight:900;letter-spacing:.12em;color:var(--orange-dark)}.total-valor{margin:2px 0 0;font-size:clamp(1.55rem,4vw,2.35rem);font-weight:950;color:#7c2d12;white-space:nowrap}
 .layout-principal{display:grid;grid-template-columns:minmax(0,1.42fr) minmax(330px,.58fr);gap:18px;align-items:start}.painel,.resultado-box{border:1px solid var(--line);border-radius:26px;background:rgba(255,253,248,.98);box-shadow:var(--shadow)}.painel{padding:clamp(14px,2vw,22px)}.titulo-painel{margin:0 0 14px;font-size:clamp(1.25rem,3vw,1.7rem);font-weight:950;color:var(--orange-dark)}.titulo-painel.verde{color:#166534}.lateral{position:sticky;top:118px;display:grid;gap:16px}
-.cardapio{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.categoria{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:white}.categoria-titulo{display:flex;align-items:center;gap:8px;margin:0;padding:12px 14px;font-size:1rem;font-weight:950;color:white}.categoria.salgados .categoria-titulo{background:#c2410c}.categoria.bebidas .categoria-titulo{background:#1d4ed8}.categoria.doces .categoria-titulo{background:#be185d}.categoria.brincadeiras .categoria-titulo{background:#7c3aed}.produtos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:10px}.produto-btn{min-height:76px;padding:10px;border:1px solid #ead8c3;border-radius:16px;background:#fffdf8;color:var(--ink);text-align:left;box-shadow:0 3px 0 rgba(120,73,30,.10);transition:.15s ease}.produto-btn:hover{transform:translateY(-2px);border-color:#fb923c;box-shadow:0 7px 16px rgba(120,73,30,.12)}.produto-btn:active{transform:translateY(1px);box-shadow:none}.produto-nome{display:block;font-size:.94rem;line-height:1.15;font-weight:900}.produto-preco{display:block;margin-top:5px;font-size:1.05rem;font-weight:950;color:var(--orange-dark)}
+.cardapio{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.categoria{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:white}.categoria-titulo{display:flex;align-items:center;gap:8px;margin:0;padding:12px 14px;font-size:1rem;font-weight:950;color:white}.categoria.salgados .categoria-titulo{background:#c2410c}.categoria.bebidas .categoria-titulo{background:#1d4ed8}.categoria.doces .categoria-titulo{background:#be185d}.categoria.brincadeiras .categoria-titulo{background:#7c3aed}.produtos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:10px}.produto-btn{min-height:76px;padding:10px;border:1px solid #ead8c3;border-radius:16px;background:#fffdf8;color:var(--ink);text-align:left;box-shadow:0 3px 0 rgba(120,73,30,.10);transition:.15s ease}.produto-btn:hover{transform:translateY(-2px);border-color:#fb923c;box-shadow:0 7px 16px rgba(120,73,30,.12)}.produto-btn:active{transform:translateY(1px);box-shadow:none}.produto-nome{display:block;font-size:.94rem;line-height:1.15;font-weight:900}.produto-preco{display:block;margin-top:5px;font-size:1.05rem;font-weight:950;color:var(--orange-dark)}.produto-btn{position:relative}.produto-contador{position:absolute;top:7px;right:7px;display:none;min-width:28px;height:28px;padding:0 7px;align-items:center;justify-content:center;border-radius:999px;background:#166534;color:#fff;font-size:.82rem;font-weight:950;box-shadow:0 3px 8px rgba(20,83,45,.28)}.produto-btn.tem-quantidade{border:2px solid #22c55e;background:#f0fdf4}.produto-btn.tem-quantidade .produto-contador{display:flex}.produto-btn.tem-quantidade .produto-preco{color:#166534}
 .bloco-cadastro{margin-top:14px;padding:14px;border:1px dashed #fdba74;border-radius:20px;background:#fff7ed}.bloco-titulo{margin:0 0 10px;font-size:.92rem;font-weight:950;color:var(--orange-dark)}.cadastro-grid{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:10px;align-items:end}.label,.mini-label{display:block;margin-bottom:5px;font-weight:850;color:var(--muted)}.label{font-size:.9rem}.mini-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}.campo-grande,.item-input,.qty-input{width:100%;border:2px solid #e7d5bf;border-radius:15px;outline:none;background:white;color:var(--ink);font-weight:900}.campo-grande{height:62px;padding:10px 14px;text-align:center;font-size:clamp(1.55rem,4vw,2.15rem)}.campo-grande:focus,.item-input:focus,.qty-input:focus{border-color:#fb923c;box-shadow:0 0 0 4px rgba(251,146,60,.13)}.campo-verde{border-color:#86efac;background:#f0fdf4;color:#14532d}.campo-laranja-claro{background:#fff7ed}.qty-wrap{display:grid;grid-template-columns:50px minmax(70px,1fr) 50px;gap:7px}.qty-btn{display:grid;place-items:center;height:52px;border:0;border-radius:14px;background:#ffedd5;color:#9a3412;font-size:1.55rem;font-weight:950;box-shadow:0 3px 0 #fb923c}.qty-input{height:52px;text-align:center;font-size:1.35rem;-moz-appearance:textfield}.qty-input::-webkit-inner-spin-button,.qty-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.main-btn,.danger-btn,.btn-limpar,.btn-apagar{border:0;font-weight:950;touch-action:manipulation}.main-btn{width:100%;height:58px;margin-top:10px;border-radius:16px;background:linear-gradient(145deg,#f97316,#c2410c);color:white;font-size:1.12rem;box-shadow:0 7px 16px rgba(194,65,12,.22)}
 .itens-box{margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:22px;background:#fffaf3}.itens-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.itens-titulo{margin:0;font-size:1.12rem;font-weight:950;color:var(--orange-dark)}.btn-limpar{padding:9px 12px;border-radius:12px;background:var(--red-soft);color:#991b1b;font-size:.78rem}.sem-itens{margin:0;padding:24px 12px;text-align:center;border:1px dashed #d6c4af;border-radius:16px;background:white;color:var(--muted);font-weight:750}#listaItens{display:grid;gap:10px}.item-card{padding:12px;border:1px solid #ead8c3;border-radius:18px;background:white;box-shadow:0 4px 13px rgba(76,42,18,.07)}.item-grid{display:grid;grid-template-columns:minmax(120px,1.1fr) minmax(115px,.75fr) 190px minmax(120px,.75fr) 82px;gap:10px;align-items:end}.item-nome{margin:0;align-self:center;font-size:1.02rem;font-weight:950;color:var(--orange-dark);overflow-wrap:anywhere}.item-input{height:48px;padding:8px;text-align:center;font-size:1rem}.subtotal-input{background:#ffedd5;border-color:#fdba74}.btn-apagar{height:48px;border-radius:13px;background:var(--red);color:white;font-size:.78rem}
 .label-troco{display:block;margin:12px 0 6px;font-size:.82rem;font-weight:950;letter-spacing:.05em;color:var(--muted)}.label-troco:first-of-type{margin-top:0}.resultado-box{padding:16px}.caixa-troco{padding:17px;text-align:center;border-radius:20px}.caixa-troco-titulo{margin:0;font-size:1rem;font-weight:950}.caixa-troco #troco{margin:4px 0 0;font-size:clamp(2.2rem,6vw,4rem)!important;line-height:1;font-weight:950;overflow-wrap:anywhere}.entregar-box{margin-top:12px;padding:15px;border:2px solid #facc15;border-radius:18px;background:#fefce8}.entregar-titulo{margin:0 0 8px;font-size:1rem;font-weight:950;color:#854d0e}#detalhes{display:grid;gap:6px;margin:0;padding-left:22px;font-size:1rem;font-weight:850}.danger-btn{width:100%;min-height:60px;padding:10px;border-radius:18px;background:linear-gradient(145deg,#ef4444,#b91c1c);color:white;font-size:1rem;box-shadow:0 8px 18px rgba(185,28,28,.20)}.hidden{display:none!important}
@@ -32,27 +32,27 @@
   <h2 class="titulo-painel">Cardápio rápido</h2>
   <div class="cardapio">
     <section class="categoria salgados"><h3 class="categoria-titulo">🌭 Salgados</h3><div class="produtos-grid">
-      <button class="produto-btn" onclick="adicionarProduto(6,'Pinhão')"><span class="produto-nome">Pinhão</span><span class="produto-preco">R$ 6,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(10,'Espetinho')"><span class="produto-nome">Espetinho</span><span class="produto-preco">R$ 10,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(8,'Cachorro-quente')"><span class="produto-nome">Cachorro-quente</span><span class="produto-preco">R$ 8,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(3,'Pipoca')"><span class="produto-nome">Pipoca</span><span class="produto-preco">R$ 3,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(30,'Galeto')"><span class="produto-nome">Galeto</span><span class="produto-preco">R$ 30,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(6,'Salgado')"><span class="produto-nome">Salgado</span><span class="produto-preco">R$ 6,00</span></button>
+      <button class="produto-btn" data-produto="Pinhão" onclick="adicionarProduto(6,'Pinhão')"><span class="produto-nome">Pinhão</span><span class="produto-preco">R$ 6,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Espetinho" onclick="adicionarProduto(10,'Espetinho')"><span class="produto-nome">Espetinho</span><span class="produto-preco">R$ 10,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Cachorro-quente" onclick="adicionarProduto(8,'Cachorro-quente')"><span class="produto-nome">Cachorro-quente</span><span class="produto-preco">R$ 8,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Pipoca" onclick="adicionarProduto(3,'Pipoca')"><span class="produto-nome">Pipoca</span><span class="produto-preco">R$ 3,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Galeto" onclick="adicionarProduto(30,'Galeto')"><span class="produto-nome">Galeto</span><span class="produto-preco">R$ 30,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Salgado" onclick="adicionarProduto(6,'Salgado')"><span class="produto-nome">Salgado</span><span class="produto-preco">R$ 6,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
     </div></section>
     <section class="categoria bebidas"><h3 class="categoria-titulo">🥤 Bebidas</h3><div class="produtos-grid">
-      <button class="produto-btn" onclick="adicionarProduto(4,'Água')"><span class="produto-nome">Água</span><span class="produto-preco">R$ 4,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(6,'Refrigerante lata')"><span class="produto-nome">Refrigerante lata</span><span class="produto-preco">R$ 6,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(5,'Quentão')"><span class="produto-nome">Quentão</span><span class="produto-preco">R$ 5,00</span></button>
+      <button class="produto-btn" data-produto="Água" onclick="adicionarProduto(4,'Água')"><span class="produto-nome">Água</span><span class="produto-preco">R$ 4,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Refrigerante lata" onclick="adicionarProduto(6,'Refrigerante lata')"><span class="produto-nome">Refrigerante lata</span><span class="produto-preco">R$ 6,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Quentão" onclick="adicionarProduto(5,'Quentão')"><span class="produto-nome">Quentão</span><span class="produto-preco">R$ 5,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
     </div></section>
     <section class="categoria doces"><h3 class="categoria-titulo">🍬 Doces</h3><div class="produtos-grid">
-      <button class="produto-btn" onclick="adicionarProduto(5,'Docinho (caju/brigadeiro)')"><span class="produto-nome">Docinho</span><span class="produto-preco">R$ 5,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(5,'Canjica')"><span class="produto-nome">Canjica</span><span class="produto-preco">R$ 5,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(5,'Cartucho')"><span class="produto-nome">Cartucho</span><span class="produto-preco">R$ 5,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(7,'Maçã do amor')"><span class="produto-nome">Maçã do amor</span><span class="produto-preco">R$ 7,00</span></button>
+      <button class="produto-btn" data-produto="Docinho (caju/brigadeiro)" onclick="adicionarProduto(5,'Docinho (caju/brigadeiro)')"><span class="produto-nome">Docinho</span><span class="produto-preco">R$ 5,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Canjica" onclick="adicionarProduto(5,'Canjica')"><span class="produto-nome">Canjica</span><span class="produto-preco">R$ 5,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Cartucho" onclick="adicionarProduto(5,'Cartucho')"><span class="produto-nome">Cartucho</span><span class="produto-preco">R$ 5,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Maçã do amor" onclick="adicionarProduto(7,'Maçã do amor')"><span class="produto-nome">Maçã do amor</span><span class="produto-preco">R$ 7,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
     </div></section>
     <section class="categoria brincadeiras"><h3 class="categoria-titulo">🎯 Brincadeiras</h3><div class="produtos-grid">
-      <button class="produto-btn" onclick="adicionarProduto(5,'Pescaria')"><span class="produto-nome">Pescaria</span><span class="produto-preco">R$ 5,00</span></button>
-      <button class="produto-btn" onclick="adicionarProduto(2.5,'Binguinho com 5')"><span class="produto-nome">Binguinho com 5</span><span class="produto-preco">R$ 2,50</span></button>
+      <button class="produto-btn" data-produto="Pescaria" onclick="adicionarProduto(5,'Pescaria')"><span class="produto-nome">Pescaria</span><span class="produto-preco">R$ 5,00</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
+      <button class="produto-btn" data-produto="Binguinho com 5" onclick="adicionarProduto(2.5,'Binguinho com 5')"><span class="produto-nome">Binguinho com 5</span><span class="produto-preco">R$ 2,50</span><span class="produto-contador" aria-label="Quantidade selecionada">0</span></button>
     </div></section>
   </div>
   <div class="bloco-cadastro"><p class="bloco-titulo">Adicionar valor avulso</p><div class="cadastro-grid"><div><label class="label">Valor do item</label><input id="calcValor" class="campo-grande" type="text" inputmode="numeric" placeholder="R$ 0,00"></div><div><label class="label">Quantidade</label><div class="qty-wrap"><button type="button" class="qty-btn" onclick="mudarQtdCadastro(-1)">−</button><input id="calcQtd" class="qty-input" type="number" min="1" step="1" value="1" inputmode="numeric"><button type="button" class="qty-btn" onclick="mudarQtdCadastro(1)">+</button></div></div></div><button onclick="adicionarItem()" class="main-btn">+ ADICIONAR VALOR AVULSO</button></div>
@@ -81,8 +81,27 @@
     let itens = [];
 
 function adicionarProduto(valor,nome){
-  itens.push({valor:Math.round(valor*100),qtd:1,nome});
+  const existente = itens.find(item => item.nome === nome);
+  if (existente) {
+    existente.qtd += 1;
+  } else {
+    itens.push({valor:Math.round(valor*100),qtd:1,nome});
+  }
   renderizarItens();
+}
+
+function atualizarContadoresProdutos(){
+  document.querySelectorAll('.produto-btn[data-produto]').forEach(botao => {
+    const nome = botao.dataset.produto;
+    const item = itens.find(produto => produto.nome === nome);
+    const quantidade = item ? Number(item.qtd || 0) : 0;
+    const contador = botao.querySelector('.produto-contador');
+    if (contador) contador.textContent = quantidade;
+    botao.classList.toggle('tem-quantidade', quantidade > 0);
+    botao.setAttribute('aria-label', quantidade > 0
+      ? `${nome}, quantidade ${quantidade}. Clique para adicionar mais um.`
+      : `${nome}. Clique para adicionar.`);
+  });
 }
 
 
@@ -172,6 +191,7 @@ function adicionarProduto(valor,nome){
         listaItens.appendChild(div);
       });
       atualizarTotal();
+      atualizarContadoresProdutos();
     }
 
     function editarValor(index, input) {
@@ -220,6 +240,7 @@ function adicionarProduto(valor,nome){
       resultado.classList.add("hidden");
       calcValor.value = "";
       calcQtd.value = "1";
+      atualizarContadoresProdutos();
       calcValor.focus();
     }
 
@@ -313,6 +334,7 @@ function adicionarProduto(valor,nome){
       trocoEl.textContent = "";
       totalCalc.textContent = "R$ 0,00";
       resultado.classList.add("hidden");
+      atualizarContadoresProdutos();
       calcValor.focus();
     }
 
