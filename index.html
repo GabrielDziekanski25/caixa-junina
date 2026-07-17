@@ -135,6 +135,28 @@ body { overflow-x: hidden; }
 .modal-total-label{font-size:.78rem;font-weight:950;letter-spacing:.08em;color:#9a3412}
 .modal-total-valor{font-size:1.7rem;font-weight:950;color:#7c2d12;white-space:nowrap}
 body.modal-aberto{overflow:hidden}
+
+.modal-item-info{min-width:0;display:grid;gap:5px}
+.modal-item-controles{display:grid;grid-template-columns:42px minmax(62px,auto) 42px;gap:7px;align-items:center}
+.modal-qtd-btn{display:grid;place-items:center;width:42px;height:42px;border:0;border-radius:12px;font-size:1.35rem;font-weight:950;box-shadow:0 3px 0 rgba(0,0,0,.12);touch-action:manipulation}
+.modal-qtd-btn.menos{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.modal-qtd-btn.mais{background:#dcfce7;color:#166534;border:1px solid #86efac}
+.modal-qtd-btn:active{transform:translateY(2px);box-shadow:none}
+.modal-qtd-numero{display:grid;place-items:center;min-width:62px;height:42px;padding:0 9px;border-radius:12px;background:#f5efe7;color:#5b4636;font-size:.9rem;font-weight:950;white-space:nowrap}
+.modal-rodape-acoes{display:flex;align-items:center;gap:10px}
+.modal-limpar-venda{min-height:48px;padding:10px 16px;border:0;border-radius:14px;background:linear-gradient(145deg,#ef4444,#991b1b);color:#fff;font-size:.88rem;font-weight:950;box-shadow:0 6px 14px rgba(153,27,27,.25);white-space:nowrap}
+.modal-limpar-venda:active{transform:translateY(2px);box-shadow:none}
+@media(max-width:560px){
+  .modal-item{grid-template-columns:1fr;gap:10px}
+  .modal-item-controles{grid-template-columns:48px minmax(0,1fr) 48px}
+  .modal-qtd-btn{width:48px;height:44px}
+  .modal-qtd-numero{height:44px}
+  .modal-item-subtotal{grid-column:auto;text-align:right;font-size:1.05rem}
+  .modal-rodape{display:grid;grid-template-columns:1fr;gap:10px}
+  .modal-rodape-acoes{display:grid;grid-template-columns:1fr auto}
+  .modal-limpar-venda{width:100%;font-size:.82rem}
+}
+
 @media(max-width:560px){.total-box{min-width:148px}.mostrar-itens-btn{font-size:.72rem;padding:8px}.mostrar-itens-btn strong{font-size:.66rem}.modal-item{grid-template-columns:minmax(0,1fr) auto}.modal-item-subtotal{grid-column:1/-1;text-align:right}.modal-caixa{max-height:88vh}.modal-rodape{padding:12px 14px}.modal-total-valor{font-size:1.4rem}}
 
 </style>
@@ -200,8 +222,14 @@ body.modal-aberto{overflow:hidden}
     </header>
     <div id="listaModalItens" class="modal-lista"></div>
     <footer class="modal-rodape">
-      <span class="modal-total-label">TOTAL DA VENDA</span>
-      <strong id="totalModalItens" class="modal-total-valor">R$ 0,00</strong>
+      <div>
+        <span class="modal-total-label">TOTAL DA VENDA</span><br>
+        <strong id="totalModalItens" class="modal-total-valor">R$ 0,00</strong>
+      </div>
+      <div class="modal-rodape-acoes">
+        <button type="button" class="modal-limpar-venda" onclick="limparVendaRapidoModal()">🗑 LIMPAR VENDA RÁPIDO</button>
+        <button type="button" class="modal-fechar" onclick="fecharItensVenda()" aria-label="Fechar resumo">×</button>
+      </div>
     </footer>
   </section>
 </div>
@@ -493,8 +521,15 @@ function prepararControlesRapidos(){
           const nome = item.nome || ("Item " + (index + 1));
           const subtotal = item.valor * item.qtd;
           linha.innerHTML = `
-            <span class="modal-item-nome">${nome}</span>
-            <span class="modal-item-qtd">${item.qtd} × ${formatar(item.valor / 100)}</span>
+            <div class="modal-item-info">
+              <span class="modal-item-nome">${nome}</span>
+              <span class="modal-item-qtd">${formatar(item.valor / 100)} cada</span>
+            </div>
+            <div class="modal-item-controles" aria-label="Alterar quantidade de ${nome}">
+              <button type="button" class="modal-qtd-btn menos" onclick="alterarQuantidadeNoResumo(${index}, -1)" aria-label="Diminuir ${nome}">−</button>
+              <span class="modal-qtd-numero">${item.qtd} un.</span>
+              <button type="button" class="modal-qtd-btn mais" onclick="alterarQuantidadeNoResumo(${index}, 1)" aria-label="Aumentar ${nome}">+</button>
+            </div>
             <span class="modal-item-subtotal">${formatar(subtotal / 100)}</span>
           `;
           listaModalItens.appendChild(linha);
@@ -503,6 +538,25 @@ function prepararControlesRapidos(){
 
       const total = itens.reduce((soma, item) => soma + item.valor * item.qtd, 0);
       totalModalItens.textContent = formatar(total / 100);
+    }
+
+    function alterarQuantidadeNoResumo(index, delta) {
+      if (!itens[index]) return;
+      itens[index].qtd = Number(itens[index].qtd || 0) + delta;
+      if (itens[index].qtd <= 0) itens.splice(index, 1);
+      renderizarItens();
+      salvarVendaLocal();
+    }
+
+    function limparVendaRapidoModal() {
+      if (!existeVendaEmAndamento()) {
+        fecharItensVenda();
+        return;
+      }
+      if (!confirm("Deseja realmente limpar toda a venda atual?")) return;
+      limparTudo();
+      localStorage.removeItem(CHAVE_VENDA);
+      fecharItensVenda();
     }
 
     function abrirItensVenda() {
