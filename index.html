@@ -67,6 +67,39 @@ body { overflow-x: hidden; }
   .produto-qtd-centro { font-size:.68rem; }
 }
 
+
+
+/* Ajuste para nomes completos dos produtos no desktop */
+.produto-nome{
+  white-space:normal;
+  overflow:visible;
+  text-overflow:clip;
+  overflow-wrap:break-word;
+  word-break:normal;
+  hyphens:auto;
+  padding-right:0;
+  line-height:1.22;
+}
+.produto-btn.tem-quantidade .produto-nome{
+  padding-right:38px;
+}
+@media (min-width:1121px){
+  .produtos-grid{
+    grid-template-columns:repeat(2,minmax(150px,1fr));
+  }
+  .produto-btn{
+    min-height:136px;
+    padding:14px 12px 54px;
+  }
+  .produto-nome{
+    font-size:1rem;
+    min-height:2.44em;
+  }
+  .produto-preco{
+    padding-right:0;
+  }
+}
+
 </style>
 </head>
 <body>
