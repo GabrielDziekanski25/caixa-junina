@@ -101,6 +101,42 @@ body { overflow-x: hidden; }
   }
 }
 
+
+/* Pagamento rápido, limpeza e expansão dos itens */
+.pagamento-acoes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.valor-rapido-btn,.limpar-pagamento-btn,.toggle-itens-btn{border:0;border-radius:13px;font-weight:950;touch-action:manipulation}
+.valor-rapido-btn{min-height:46px;background:#dcfce7;color:#166534;border:1px solid #86efac;font-size:.95rem}
+.valor-rapido-btn:active{transform:translateY(1px)}
+.limpar-pagamento-btn{grid-column:1/-1;min-height:44px;background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.toggle-itens-btn{display:inline-grid;place-items:center;min-width:44px;height:40px;background:#ffedd5;color:#9a3412;border:1px solid #fdba74;font-size:1.2rem;transition:.2s ease}
+.toggle-itens-btn.aberto{transform:rotate(180deg)}
+.itens-conteudo{display:block}
+.itens-conteudo.recolhido{display:none}
+.itens-acoes-topo{display:flex;align-items:center;gap:8px}
+@media(max-width:560px){.pagamento-acoes{grid-template-columns:repeat(2,minmax(0,1fr))}.valor-rapido-btn{min-height:44px}.limpar-pagamento-btn{grid-column:1/-1}}
+
+/* Janela organizada dos itens da venda */
+.mostrar-itens-btn{width:100%;margin-top:9px;padding:10px 12px;border:1px solid #fb923c;border-radius:13px;background:#fff;color:#9a3412;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:950;box-shadow:0 3px 0 rgba(194,65,12,.16)}
+.mostrar-itens-btn strong{flex:0 0 auto;padding:4px 8px;border-radius:999px;background:#166534;color:#fff;font-size:.75rem}
+.mostrar-itens-btn:active{transform:translateY(2px);box-shadow:none}
+.modal-itens{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(45,33,24,.68);backdrop-filter:blur(5px)}
+.modal-itens.aberto{display:flex}
+.modal-caixa{width:min(720px,100%);max-height:min(82vh,760px);display:flex;flex-direction:column;overflow:hidden;border:2px solid #fdba74;border-radius:24px;background:#fffdf8;box-shadow:0 28px 80px rgba(45,33,24,.35)}
+.modal-topo{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;background:linear-gradient(145deg,#fff7ed,#ffedd5);border-bottom:1px solid #fdba74}
+.modal-titulo{margin:0;color:#9a3412;font-size:1.35rem;font-weight:950}
+.modal-fechar{width:44px;height:44px;border:0;border-radius:13px;background:#dc2626;color:#fff;font-size:1.45rem;font-weight:950}
+.modal-lista{overflow:auto;padding:14px;display:grid;gap:9px}
+.modal-vazio{padding:32px 15px;text-align:center;border:1px dashed #d6c4af;border-radius:16px;color:#75665b;font-weight:850}
+.modal-item{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid #ead8c3;border-radius:16px;background:#fff;box-shadow:0 3px 10px rgba(76,42,18,.06)}
+.modal-item-nome{min-width:0;font-weight:950;color:#7c2d12;overflow-wrap:anywhere}
+.modal-item-qtd{padding:5px 9px;border-radius:999px;background:#dcfce7;color:#166534;font-size:.82rem;font-weight:950;white-space:nowrap}
+.modal-item-subtotal{font-weight:950;color:#2d2118;white-space:nowrap}
+.modal-rodape{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 18px;border-top:2px solid #fdba74;background:#fff7ed}
+.modal-total-label{font-size:.78rem;font-weight:950;letter-spacing:.08em;color:#9a3412}
+.modal-total-valor{font-size:1.7rem;font-weight:950;color:#7c2d12;white-space:nowrap}
+body.modal-aberto{overflow:hidden}
+@media(max-width:560px){.total-box{min-width:148px}.mostrar-itens-btn{font-size:.72rem;padding:8px}.mostrar-itens-btn strong{font-size:.66rem}.modal-item{grid-template-columns:minmax(0,1fr) auto}.modal-item-subtotal{grid-column:1/-1;text-align:right}.modal-caixa{max-height:88vh}.modal-rodape{padding:12px 14px}.modal-total-valor{font-size:1.4rem}}
+
 </style>
 </head>
 <body>
@@ -112,10 +148,10 @@ body { overflow-x: hidden; }
       <p class="total-label">TOTAL DA VENDA</p>
       <p id="totalTopo" class="total-valor">R$ 0,00</p>
     </div>
-    <div class="resumo-venda">
-      <p class="resumo-titulo">SENDO VENDIDO AGORA</p>
-      <div id="resumoTopo" class="resumo-itens"><span class="resumo-vazio">Nenhum produto adicionado.</span></div>
-    </div>
+    <button type="button" class="mostrar-itens-btn" onclick="abrirItensVenda()">
+      <span>🧾 MOSTRAR ITENS DA VENDA</span>
+      <strong id="quantidadeItensTopo">0 itens</strong>
+    </button>
   </div>
 </header>
 <section class="layout-principal">
@@ -147,15 +183,29 @@ body { overflow-x: hidden; }
     </div></section>
   </div>
   <div class="bloco-cadastro"><p class="bloco-titulo">Adicionar valor avulso</p><div class="cadastro-grid"><div><label class="label">Valor do item</label><input id="calcValor" class="campo-grande" type="text" inputmode="numeric" placeholder="R$ 0,00"></div><div><label class="label">Quantidade</label><div class="qty-wrap"><button type="button" class="qty-btn" onclick="mudarQtdCadastro(-1)">−</button><input id="calcQtd" class="qty-input" type="number" min="1" step="1" value="1" inputmode="numeric"><button type="button" class="qty-btn" onclick="mudarQtdCadastro(1)">+</button></div></div></div><button onclick="adicionarItem()" class="main-btn">+ ADICIONAR VALOR AVULSO</button></div>
-  <div class="itens-box"><div class="itens-topo"><h3 class="itens-titulo">Itens da venda</h3><button onclick="limparItens()" class="btn-limpar">LIMPAR ITENS</button></div><div id="listaItens"></div><p id="semItens" class="sem-itens">Nenhum item adicionado.</p></div>
+  <div class="itens-box"><div class="itens-topo"><h3 class="itens-titulo">Itens da venda</h3><div class="itens-acoes-topo"><button type="button" id="toggleItens" onclick="alternarItens()" class="toggle-itens-btn aberto" aria-label="Recolher ou expandir itens" title="Recolher ou expandir">⌃</button><button onclick="limparItens()" class="btn-limpar">LIMPAR ITENS</button></div></div><div id="itensConteudo" class="itens-conteudo"><div id="listaItens"></div><p id="semItens" class="sem-itens">Nenhum item adicionado.</p></div></div>
 </section>
 <aside class="lateral">
-  <section class="painel"><h2 class="titulo-painel verde">Pagamento e troco</h2><label class="label-troco">TOTAL DA VENDA</label><input id="compra" class="campo-grande campo-laranja-claro" type="text" inputmode="numeric" placeholder="R$ 0,00"><label class="label-troco">CLIENTE DEU</label><input id="recebido" class="campo-grande campo-verde" type="text" inputmode="numeric" placeholder="R$ 0,00"></section>
+  <section class="painel"><h2 class="titulo-painel verde">Pagamento e troco</h2><label class="label-troco">TOTAL DA VENDA</label><input id="compra" class="campo-grande campo-laranja-claro" type="text" inputmode="numeric" placeholder="R$ 0,00"><label class="label-troco">CLIENTE DEU</label><input id="recebido" class="campo-grande campo-verde" type="text" inputmode="numeric" placeholder="Digite o valor recebido"><div class="pagamento-acoes"><button type="button" class="valor-rapido-btn" onclick="definirRecebido(5)">R$ 5</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(10)">R$ 10</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(20)">R$ 20</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(50)">R$ 50</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(100)">R$ 100</button><button type="button" class="valor-rapido-btn" onclick="usarValorExato()">VALOR EXATO</button><button type="button" class="limpar-pagamento-btn" onclick="limparPagamentoRapido()">LIMPAR PAGAMENTO</button></div></section>
   <section id="resultado" class="resultado-box hidden"><div id="caixaTroco" class="caixa-troco"><p class="caixa-troco-titulo">TROCO</p><p id="troco"></p></div><div class="entregar-box"><h2 class="entregar-titulo">ENTREGAR:</h2><ul id="detalhes"></ul></div></section>
   <button onclick="limparTudo()" class="danger-btn">NOVA VENDA / LIMPAR TUDO</button>
 </aside>
 </section>
 </main>
+<div id="modalItensVenda" class="modal-itens" role="dialog" aria-modal="true" aria-labelledby="tituloModalItens" onclick="fecharItensAoClicarFora(event)">
+  <section class="modal-caixa">
+    <header class="modal-topo">
+      <h2 id="tituloModalItens" class="modal-titulo">🧾 Itens da venda</h2>
+      <button type="button" class="modal-fechar" onclick="fecharItensVenda()" aria-label="Fechar itens da venda">×</button>
+    </header>
+    <div id="listaModalItens" class="modal-lista"></div>
+    <footer class="modal-rodape">
+      <span class="modal-total-label">TOTAL DA VENDA</span>
+      <strong id="totalModalItens" class="modal-total-valor">R$ 0,00</strong>
+    </footer>
+  </section>
+</div>
+
 <script>
     const compra = document.getElementById("compra");
     const recebido = document.getElementById("recebido");
@@ -168,7 +218,13 @@ body { overflow-x: hidden; }
     const listaItens = document.getElementById("listaItens");
     const totalCalc = document.getElementById("totalTopo");
     const semItens = document.getElementById("semItens");
+    const itensConteudo = document.getElementById("itensConteudo");
+    const toggleItens = document.getElementById("toggleItens");
     const resumoTopo = document.getElementById("resumoTopo");
+    const modalItensVenda = document.getElementById("modalItensVenda");
+    const listaModalItens = document.getElementById("listaModalItens");
+    const totalModalItens = document.getElementById("totalModalItens");
+    const quantidadeItensTopo = document.getElementById("quantidadeItensTopo");
 
     let itens = [];
 
@@ -248,6 +304,35 @@ function prepararControlesRapidos(){
   });
   atualizarContadoresProdutos();
 }
+
+    function definirRecebido(valor) {
+      recebido.value = formatar(valor);
+      calcularTroco();
+      salvarVendaLocal();
+    }
+
+    function usarValorExato() {
+      const total = pegarCentavos(compra);
+      recebido.value = total > 0 ? formatar(total / 100) : "";
+      calcularTroco();
+      salvarVendaLocal();
+    }
+
+    function limparPagamentoRapido() {
+      recebido.value = "";
+      detalhes.innerHTML = "";
+      trocoEl.textContent = "";
+      resultado.classList.add("hidden");
+      salvarVendaLocal();
+      recebido.focus();
+    }
+
+    function alternarItens() {
+      const recolhido = itensConteudo.classList.toggle("recolhido");
+      toggleItens.classList.toggle("aberto", !recolhido);
+      toggleItens.textContent = recolhido ? "⌄" : "⌃";
+      toggleItens.setAttribute("aria-label", recolhido ? "Expandir itens" : "Recolher itens");
+    }
 
     function formatar(valor) {
       return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -390,23 +475,56 @@ function prepararControlesRapidos(){
     }
 
     function atualizarResumoTopo() {
-      if (!resumoTopo) return;
-      resumoTopo.innerHTML = "";
+      const quantidadeTotal = itens.reduce((soma, item) => soma + Number(item.qtd || 0), 0);
+      if (quantidadeItensTopo) quantidadeItensTopo.textContent = quantidadeTotal === 1 ? "1 item" : `${quantidadeTotal} itens`;
+      atualizarModalItens();
+    }
+
+    function atualizarModalItens() {
+      if (!listaModalItens || !totalModalItens) return;
+      listaModalItens.innerHTML = "";
 
       if (!itens.length) {
-        resumoTopo.innerHTML = '<span class="resumo-vazio">Nenhum produto adicionado.</span>';
-        return;
+        listaModalItens.innerHTML = '<div class="modal-vazio">Nenhum item foi adicionado à venda.</div>';
+      } else {
+        itens.forEach((item, index) => {
+          const linha = document.createElement("div");
+          linha.className = "modal-item";
+          const nome = item.nome || ("Item " + (index + 1));
+          const subtotal = item.valor * item.qtd;
+          linha.innerHTML = `
+            <span class="modal-item-nome">${nome}</span>
+            <span class="modal-item-qtd">${item.qtd} × ${formatar(item.valor / 100)}</span>
+            <span class="modal-item-subtotal">${formatar(subtotal / 100)}</span>
+          `;
+          listaModalItens.appendChild(linha);
+        });
       }
 
-      itens.forEach((item, index) => {
-        const chip = document.createElement("span");
-        chip.className = "resumo-chip";
-        const nome = item.nome || ("Item " + (index + 1));
-        const subtotal = item.valor * item.qtd;
-        chip.innerHTML = `<strong>${item.qtd}×</strong> ${nome} · ${formatar(subtotal / 100)}`;
-        resumoTopo.appendChild(chip);
-      });
+      const total = itens.reduce((soma, item) => soma + item.valor * item.qtd, 0);
+      totalModalItens.textContent = formatar(total / 100);
     }
+
+    function abrirItensVenda() {
+      atualizarModalItens();
+      modalItensVenda.classList.add("aberto");
+      document.body.classList.add("modal-aberto");
+      const fechar = modalItensVenda.querySelector(".modal-fechar");
+      if (fechar) fechar.focus();
+    }
+
+    function fecharItensVenda() {
+      modalItensVenda.classList.remove("aberto");
+      document.body.classList.remove("modal-aberto");
+    }
+
+    function fecharItensAoClicarFora(evento) {
+      if (evento.target === modalItensVenda) fecharItensVenda();
+    }
+
+    document.addEventListener("keydown", evento => {
+      if (evento.key === "Escape" && modalItensVenda.classList.contains("aberto")) fecharItensVenda();
+    });
 
     function atualizarTotal() {
       const total = itens.reduce((soma, item) => soma + item.valor * item.qtd, 0);
@@ -506,6 +624,8 @@ function prepararControlesRapidos(){
 
     compra.addEventListener("input", () => { aplicarMascara(compra); calcularTroco(); });
     recebido.addEventListener("input", () => { aplicarMascara(recebido); calcularTroco(); salvarVendaLocal(); });
+    recebido.addEventListener("focus", () => recebido.select());
+    recebido.addEventListener("keydown", e => { if (e.key === "Enter") { calcularTroco(); recebido.blur(); } });
     calcValor.addEventListener("input", () => aplicarMascara(calcValor));
     calcQtd.addEventListener("keydown", e => { if (e.key === "Enter") adicionarItem(); });
 
