@@ -9,7 +9,7 @@
 <style>
 :root{--bg:#fff8eb;--paper:#fffdf8;--ink:#2d2118;--muted:#75665b;--line:#ead8c3;--orange:#ea580c;--orange-dark:#9a3412;--orange-soft:#ffedd5;--yellow:#facc15;--green:#16a34a;--green-soft:#dcfce7;--red:#dc2626;--red-soft:#fee2e2;--blue:#1d4ed8;--shadow:0 14px 38px rgba(96,48,16,.14)}
 *{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{min-height:100vh;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at top left,#fff1d6 0,transparent 34%),linear-gradient(145deg,#fffaf0,#fff2d9);-webkit-tap-highlight-color:transparent}button,input{font:inherit}button{cursor:pointer}.app{width:min(1500px,100%);margin:auto;padding:clamp(10px,2vw,24px)}
-.topo{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;margin-bottom:18px;padding:clamp(14px,2vw,22px);border:1px solid rgba(234,88,12,.18);border-radius:24px;background:rgba(255,253,248,.94);box-shadow:var(--shadow);backdrop-filter:blur(14px)}.marca{display:flex;align-items:center;gap:14px;min-width:0}.marca-icone{display:grid;place-items:center;flex:0 0 auto;width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#fb923c,#c2410c);color:white;font-size:28px;box-shadow:0 8px 18px rgba(194,65,12,.25)}.titulo{margin:0;font-size:clamp(1.45rem,4vw,2.55rem);line-height:1;font-weight:950;letter-spacing:-.04em;color:var(--orange-dark)}.subtitulo{margin:5px 0 0;color:var(--muted);font-weight:750;font-size:clamp(.8rem,2vw,1.02rem)}.total-box{min-width:340px;max-width:560px;padding:11px 16px;border:2px solid #fdba74;border-radius:18px;background:linear-gradient(145deg,#fff7ed,#ffedd5)}.total-cabecalho{display:flex;align-items:end;justify-content:space-between;gap:14px}.total-label{margin:0;font-size:.72rem;font-weight:900;letter-spacing:.12em;color:var(--orange-dark)}.total-valor{margin:2px 0 0;font-size:clamp(1.55rem,4vw,2.35rem);font-weight:950;color:#7c2d12;white-space:nowrap}.resumo-venda{margin-top:8px;padding-top:8px;border-top:1px solid #fdba74;text-align:left}.resumo-titulo{margin:0 0 5px;font-size:.68rem;font-weight:950;letter-spacing:.08em;color:#9a3412}.resumo-itens{display:flex;flex-wrap:wrap;gap:5px;max-height:54px;overflow:auto}.resumo-chip{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:4px 7px;border-radius:999px;background:white;border:1px solid #fed7aa;color:#5b2b12;font-size:.74rem;font-weight:850;line-height:1.1}.resumo-chip strong{color:#166534}.resumo-vazio{font-size:.76rem;font-weight:750;color:var(--muted)}
+.topo{position:sticky;top:0;z-index:50;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:16px;margin-bottom:18px;padding:clamp(14px,2vw,22px);border:1px solid rgba(234,88,12,.18);border-radius:24px;background:rgba(255,253,248,.94);box-shadow:var(--shadow);backdrop-filter:blur(14px)}.marca{display:flex;align-items:center;gap:14px;min-width:0}.marca-icone{display:grid;place-items:center;flex:0 0 auto;width:54px;height:54px;border-radius:18px;background:linear-gradient(145deg,#fb923c,#c2410c);color:white;font-size:28px;box-shadow:0 8px 18px rgba(194,65,12,.25)}.titulo{margin:0;font-size:clamp(1.45rem,4vw,2.55rem);line-height:1;font-weight:950;letter-spacing:-.04em;color:var(--orange-dark)}.subtitulo{margin:5px 0 0;color:var(--muted);font-weight:750;font-size:clamp(.8rem,2vw,1.02rem)}.total-box{min-width:440px;max-width:650px;padding:11px 16px;border:2px solid #fdba74;border-radius:18px;background:linear-gradient(145deg,#fff7ed,#ffedd5)}.total-cabecalho{display:flex;align-items:end;justify-content:space-between;gap:14px}.total-label{margin:0;font-size:.72rem;font-weight:900;letter-spacing:.12em;color:var(--orange-dark)}.total-valor{margin:2px 0 0;font-size:clamp(1.55rem,4vw,2.35rem);font-weight:950;color:#7c2d12;white-space:nowrap}.resumo-venda{margin-top:8px;padding-top:8px;border-top:1px solid #fdba74;text-align:left}.resumo-titulo{margin:0 0 5px;font-size:.68rem;font-weight:950;letter-spacing:.08em;color:#9a3412}.resumo-itens{display:flex;flex-wrap:wrap;gap:5px;max-height:54px;overflow:auto}.resumo-chip{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:4px 7px;border-radius:999px;background:white;border:1px solid #fed7aa;color:#5b2b12;font-size:.74rem;font-weight:850;line-height:1.1}.resumo-chip strong{color:#166534}.resumo-vazio{font-size:.76rem;font-weight:750;color:var(--muted)}
 .layout-principal{display:grid;grid-template-columns:minmax(0,1.42fr) minmax(330px,.58fr);gap:18px;align-items:start}.painel,.resultado-box{border:1px solid var(--line);border-radius:26px;background:rgba(255,253,248,.98);box-shadow:var(--shadow)}.painel{padding:clamp(14px,2vw,22px)}.titulo-painel{margin:0 0 14px;font-size:clamp(1.25rem,3vw,1.7rem);font-weight:950;color:var(--orange-dark)}.titulo-painel.verde{color:#166534}.lateral{position:sticky;top:118px;display:grid;gap:16px}
 .cardapio{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.categoria{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:white}.categoria-titulo{display:flex;align-items:center;gap:8px;margin:0;padding:12px 14px;font-size:1rem;font-weight:950;color:white}.categoria.salgados .categoria-titulo{background:#c2410c}.categoria.bebidas .categoria-titulo{background:#1d4ed8}.categoria.doces .categoria-titulo{background:#be185d}.categoria.brincadeiras .categoria-titulo{background:#7c3aed}.produtos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;padding:10px}.produto-btn{min-height:76px;padding:10px;border:1px solid #ead8c3;border-radius:16px;background:#fffdf8;color:var(--ink);text-align:left;box-shadow:0 3px 0 rgba(120,73,30,.10);transition:.15s ease}.produto-btn:hover{transform:translateY(-2px);border-color:#fb923c;box-shadow:0 7px 16px rgba(120,73,30,.12)}.produto-btn:active{transform:translateY(1px);box-shadow:none}.produto-nome{display:block;font-size:.94rem;line-height:1.15;font-weight:900}.produto-preco{display:block;margin-top:5px;font-size:1.05rem;font-weight:950;color:var(--orange-dark)}.produto-btn{position:relative}.produto-contador{position:absolute;top:7px;right:7px;display:none;min-width:28px;height:28px;padding:0 7px;align-items:center;justify-content:center;border-radius:999px;background:#166534;color:#fff;font-size:.82rem;font-weight:950;box-shadow:0 3px 8px rgba(20,83,45,.28)}.produto-btn.tem-quantidade{border:2px solid #22c55e;background:#f0fdf4}.produto-btn.tem-quantidade .produto-contador{display:flex}.produto-btn.tem-quantidade .produto-preco{color:#166534}
 .bloco-cadastro{margin-top:14px;padding:14px;border:1px dashed #fdba74;border-radius:20px;background:#fff7ed}.bloco-titulo{margin:0 0 10px;font-size:.92rem;font-weight:950;color:var(--orange-dark)}.cadastro-grid{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:10px;align-items:end}.label,.mini-label{display:block;margin-bottom:5px;font-weight:850;color:var(--muted)}.label{font-size:.9rem}.mini-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.05em}.campo-grande,.item-input,.qty-input{width:100%;border:2px solid #e7d5bf;border-radius:15px;outline:none;background:white;color:var(--ink);font-weight:900}.campo-grande{height:62px;padding:10px 14px;text-align:center;font-size:clamp(1.55rem,4vw,2.15rem)}.campo-grande:focus,.item-input:focus,.qty-input:focus{border-color:#fb923c;box-shadow:0 0 0 4px rgba(251,146,60,.13)}.campo-verde{border-color:#86efac;background:#f0fdf4;color:#14532d}.campo-laranja-claro{background:#fff7ed}.qty-wrap{display:grid;grid-template-columns:50px minmax(70px,1fr) 50px;gap:7px}.qty-btn{display:grid;place-items:center;height:52px;border:0;border-radius:14px;background:#ffedd5;color:#9a3412;font-size:1.55rem;font-weight:950;box-shadow:0 3px 0 #fb923c}.qty-input{height:52px;text-align:center;font-size:1.35rem;-moz-appearance:textfield}.qty-input::-webkit-inner-spin-button,.qty-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.main-btn,.danger-btn,.btn-limpar,.btn-apagar{border:0;font-weight:950;touch-action:manipulation}.main-btn{width:100%;height:58px;margin-top:10px;border-radius:16px;background:linear-gradient(145deg,#f97316,#c2410c);color:white;font-size:1.12rem;box-shadow:0 7px 16px rgba(194,65,12,.22)}
@@ -162,6 +162,37 @@ body.modal-aberto{overflow:hidden}
 
 @media(max-width:560px){.total-box{min-width:148px}.mostrar-itens-btn{font-size:.72rem;padding:8px}.mostrar-itens-btn strong{font-size:.66rem}.modal-item{grid-template-columns:minmax(0,1fr) auto}.modal-item-subtotal{grid-column:1/-1;text-align:right}.modal-caixa{max-height:88vh}.modal-rodape{padding:12px 14px}.modal-total-valor{font-size:1.4rem}}
 
+
+/* Pagamento e troco rápidos integrados ao cabeçalho */
+.topo-pagamento{display:grid;grid-template-columns:minmax(170px,1fr) minmax(145px,.72fr);gap:9px 12px;align-items:end;margin-top:9px;padding-top:9px;border-top:1px solid #fdba74}
+.topo-campo-grupo,.topo-troco-grupo{min-width:0}
+.topo-pagamento-label{display:block;margin-bottom:4px;font-size:.64rem;font-weight:950;letter-spacing:.08em;color:#9a3412}
+.topo-recebido{width:100%;height:46px;padding:7px 11px;border:2px solid #86efac;border-radius:13px;outline:none;background:#f0fdf4;color:#14532d;text-align:center;font-size:1.24rem;font-weight:950}
+.topo-recebido:focus{border-color:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.13)}
+.topo-troco{display:flex;align-items:center;justify-content:center;min-height:46px;padding:6px 10px;border:2px solid #d6c4af;border-radius:13px;background:#fff;color:#75665b;text-align:center;font-size:1.28rem;font-weight:950;line-height:1.05;overflow-wrap:anywhere}
+.topo-troco.sucesso{border-color:#86efac;background:#dcfce7;color:#166534}
+.topo-troco.exato{border-color:#93c5fd;background:#dbeafe;color:#1d4ed8}
+.topo-troco.falta{border-color:#fca5a5;background:#fee2e2;color:#991b1b;font-size:1rem}
+.topo-valores-rapidos{grid-column:1/-1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.topo-valor-btn{min-height:35px;padding:5px;border:1px solid #fdba74;border-radius:10px;background:#fff;color:#9a3412;font-size:.72rem;font-weight:950;touch-action:manipulation}
+.topo-valor-btn.exato{background:#dcfce7;border-color:#86efac;color:#166534}
+.topo-valor-btn:active{transform:translateY(1px)}
+@media(max-width:900px){
+  .total-box{min-width:370px}
+  .topo-valores-rapidos{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .topo-pagamento{grid-template-columns:minmax(0,1.2fr) minmax(112px,.8fr);gap:7px}
+  .topo-recebido,.topo-troco{height:43px;min-height:43px;font-size:1rem}
+  .topo-valores-rapidos{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .topo-valor-btn{min-height:34px;font-size:.68rem}
+}
+@media(max-width:360px){
+  .topo-pagamento{grid-template-columns:1fr}
+  .topo-troco-grupo{grid-column:1}
+  .topo-valores-rapidos{grid-column:1;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -173,6 +204,29 @@ body.modal-aberto{overflow:hidden}
       <p class="total-label">TOTAL DA VENDA</p>
       <p id="totalTopo" class="total-valor">R$ 0,00</p>
     </div>
+
+    <div class="topo-pagamento">
+      <div class="topo-campo-grupo">
+        <label for="recebido" class="topo-pagamento-label">CLIENTE DEU</label>
+        <input id="recebido" class="topo-recebido" type="text" inputmode="numeric"
+          autocomplete="off" placeholder="R$ 0,00" aria-label="Valor recebido do cliente">
+      </div>
+
+      <div class="topo-troco-grupo">
+        <span class="topo-pagamento-label">TROCO RÁPIDO</span>
+        <div id="trocoTopo" class="topo-troco">R$ 0,00</div>
+      </div>
+
+      <div class="topo-valores-rapidos">
+        <button type="button" class="topo-valor-btn exato" onclick="usarValorExato()">EXATO</button>
+        <button type="button" class="topo-valor-btn" onclick="definirRecebido(5)">R$ 5</button>
+        <button type="button" class="topo-valor-btn" onclick="definirRecebido(10)">R$ 10</button>
+        <button type="button" class="topo-valor-btn" onclick="definirRecebido(20)">R$ 20</button>
+        <button type="button" class="topo-valor-btn" onclick="definirRecebido(50)">R$ 50</button>
+        <button type="button" class="topo-valor-btn" onclick="definirRecebido(100)">R$ 100</button>
+      </div>
+    </div>
+
     <button type="button" class="mostrar-itens-btn" onclick="abrirItensVenda()">
       <span>🧾 MOSTRAR ITENS DA VENDA</span>
       <strong id="quantidadeItensTopo">0 itens</strong>
@@ -211,7 +265,11 @@ body.modal-aberto{overflow:hidden}
   <div class="itens-box"><div class="itens-topo"><h3 class="itens-titulo">Itens da venda</h3><div class="itens-acoes-topo"><button type="button" id="toggleItens" onclick="alternarItens()" class="toggle-itens-btn aberto" aria-label="Recolher ou expandir itens" title="Recolher ou expandir">⌃</button><button onclick="limparItens()" class="btn-limpar">LIMPAR ITENS</button></div></div><div id="itensConteudo" class="itens-conteudo"><div id="listaItens"></div><p id="semItens" class="sem-itens">Nenhum item adicionado.</p></div></div>
 </section>
 <aside class="lateral">
-  <section class="painel"><h2 class="titulo-painel verde">Pagamento e troco</h2><label class="label-troco">TOTAL DA VENDA</label><input id="compra" class="campo-grande campo-laranja-claro" type="text" inputmode="numeric" placeholder="R$ 0,00"><label class="label-troco">CLIENTE DEU</label><input id="recebido" class="campo-grande campo-verde" type="text" inputmode="numeric" placeholder="Digite o valor recebido"><div class="pagamento-acoes"><button type="button" class="valor-rapido-btn" onclick="definirRecebido(5)">R$ 5</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(10)">R$ 10</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(20)">R$ 20</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(50)">R$ 50</button><button type="button" class="valor-rapido-btn" onclick="definirRecebido(100)">R$ 100</button><button type="button" class="valor-rapido-btn" onclick="usarValorExato()">VALOR EXATO</button><button type="button" class="limpar-pagamento-btn" onclick="limparPagamentoRapido()">LIMPAR PAGAMENTO</button></div></section>
+  <input id="compra" type="hidden" value="">
+  <section class="painel">
+    <h2 class="titulo-painel verde">Detalhamento do troco</h2>
+    <button type="button" class="limpar-pagamento-btn" onclick="limparPagamentoRapido()">LIMPAR PAGAMENTO</button>
+  </section>
   <section id="resultado" class="resultado-box hidden"><div id="caixaTroco" class="caixa-troco"><p class="caixa-troco-titulo">TROCO</p><p id="troco"></p></div><div class="entregar-box"><h2 class="entregar-titulo">ENTREGAR:</h2><ul id="detalhes"></ul></div></section>
   <button onclick="limparTudo()" class="danger-btn">NOVA VENDA / LIMPAR TUDO</button>
 </aside>
@@ -242,6 +300,7 @@ body.modal-aberto{overflow:hidden}
     const recebido = document.getElementById("recebido");
     const resultado = document.getElementById("resultado");
     const trocoEl = document.getElementById("troco");
+    const trocoTopo = document.getElementById("trocoTopo");
     const detalhes = document.getElementById("detalhes");
     const caixaTroco = document.getElementById("caixaTroco");
     const calcValor = document.getElementById("calcValor");
@@ -353,6 +412,7 @@ function prepararControlesRapidos(){
       recebido.value = "";
       detalhes.innerHTML = "";
       trocoEl.textContent = "";
+      atualizarTrocoTopo(0, 0);
       resultado.classList.add("hidden");
       salvarVendaLocal();
       recebido.focus();
@@ -497,6 +557,7 @@ function prepararControlesRapidos(){
       recebido.value = "";
       detalhes.innerHTML = "";
       trocoEl.textContent = "";
+      atualizarTrocoTopo(0, 0);
       resultado.classList.add("hidden");
       calcValor.value = "";
       calcQtd.value = "1";
@@ -597,6 +658,10 @@ function prepararControlesRapidos(){
       compra.value = total > 0 ? formatar(total / 100) : "";
       atualizarResumoTopo();
 
+      if (total > 0 && pegarCentavos(recebido) === 0 && document.activeElement !== recebido) {
+        recebido.focus({ preventScroll: true });
+      }
+
       if (total <= 0) {
         detalhes.innerHTML = "";
         trocoEl.textContent = "";
@@ -606,10 +671,41 @@ function prepararControlesRapidos(){
       }
     }
 
+    function atualizarTrocoTopo(valorCompra, valorRecebido) {
+      if (!trocoTopo) return;
+      trocoTopo.className = "topo-troco";
+
+      if (valorCompra <= 0) {
+        trocoTopo.textContent = "R$ 0,00";
+        return;
+      }
+
+      if (valorRecebido <= 0) {
+        trocoTopo.textContent = "DIGITE";
+        return;
+      }
+
+      if (valorRecebido < valorCompra) {
+        trocoTopo.classList.add("falta");
+        trocoTopo.textContent = "FALTA " + formatar((valorCompra - valorRecebido) / 100);
+        return;
+      }
+
+      const diferenca = valorRecebido - valorCompra;
+      if (diferenca === 0) {
+        trocoTopo.classList.add("exato");
+        trocoTopo.textContent = "EXATO";
+      } else {
+        trocoTopo.classList.add("sucesso");
+        trocoTopo.textContent = formatar(diferenca / 100);
+      }
+    }
+
     function calcularTroco() {
       const valorCompra = pegarCentavos(compra);
       const valorRecebido = pegarCentavos(recebido);
       detalhes.innerHTML = "";
+      atualizarTrocoTopo(valorCompra, valorRecebido);
 
       if (valorCompra <= 0) {
         resultado.classList.add("hidden");
@@ -620,9 +716,9 @@ function prepararControlesRapidos(){
 
       if (valorRecebido < valorCompra) {
         const falta = (valorCompra - valorRecebido) / 100;
-        caixaTroco.style.background = "var(--red-100)";
-        caixaTroco.style.border = "4px solid var(--red-500)";
-        trocoEl.style.color = "var(--red-700)";
+        caixaTroco.style.background = "var(--red-soft)";
+        caixaTroco.style.border = "4px solid var(--red)";
+        trocoEl.style.color = "#991b1b";
         trocoEl.style.fontSize = "3rem";
         trocoEl.textContent = "FALTA " + formatar(falta);
         detalhes.innerHTML = "<li>O CLIENTE DEU MENOS.</li>";
@@ -630,9 +726,9 @@ function prepararControlesRapidos(){
       }
 
       const troco = valorRecebido - valorCompra;
-      caixaTroco.style.background = "var(--green-100)";
-      caixaTroco.style.border = "4px solid var(--green-500)";
-      trocoEl.style.color = "var(--green-700)";
+      caixaTroco.style.background = "var(--green-soft)";
+      caixaTroco.style.border = "4px solid var(--green)";
+      trocoEl.style.color = "#166534";
       trocoEl.style.fontSize = "3.75rem";
       trocoEl.textContent = formatar(troco / 100);
 
@@ -682,6 +778,7 @@ function prepararControlesRapidos(){
       trocoEl.textContent = "";
       totalCalc.textContent = "R$ 0,00";
       resultado.classList.add("hidden");
+      atualizarTrocoTopo(0, 0);
       atualizarContadoresProdutos();
       atualizarResumoTopo();
       calcValor.focus();
